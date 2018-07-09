@@ -1,0 +1,8 @@
+<div class="card" style="width: 18rem;" *ngIf="_user | async as user">
+  <div class="card-body">
+    <h3 class="card-title">User details</h3>
+    <h5 class="card-title">{{user.name}}</h5>
+    <p class="card-text">{{user.email}}</p>
+    <a  class="btn btn-danger" (click)="deleteUser(user.id)">Delete User</a>
+  </div>
+</div>

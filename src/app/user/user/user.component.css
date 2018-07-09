@@ -1,0 +1,14 @@
+.ng-touched.ng-invalid.form-control{
+    border: solid 1px #ae0b0b;
+}
+
+.user-list{
+    width: 100%;
+    overflow-y: scroll;
+    height: 70%;
+    min-height: 250px;
+}
+
+.user-selected{
+    color:#e26d1f;
+}

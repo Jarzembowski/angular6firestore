@@ -1,0 +1,58 @@
+<h2>Welcome to the User</h2>
+
+
+<div class="container">
+  <div class="row">
+      <div class="col-12">
+        <form #formUser="ngForm" (ngSubmit)="addUser(formUser)">
+          <div class="form-group">
+            <label for="Name">Name</label>
+            <input type="text" [(ngModel)]="user.name" class="form-control" name="name" id="name" placeholder="name" required>
+            <small id="emailHelp" class="form-text text-muted" *ngIf="!formUser.form.controls.name?.valid && formUser.form.controls.name?.touched">This field is required.</small>
+          </div>
+          <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" [(ngModel)]="user.email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email" required email>
+              <small id="emailHelp" class="form-text text-muted" *ngIf="!formUser.form.controls.email?.valid && formUser.form.controls.email?.touched">Please, provide a valid E-mail.</small>
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="!formUser.form.valid">Submit</button>
+          <hr>
+        </form>
+
+      </div>
+      <div class="col-8" >
+          <div class="col-12">
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Search by name</span>
+                  </div>
+                  <input type="text" class="form-control" [(ngModel)]="searchText" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </div>
+          </div>
+          <div class="col-12">
+              <hr>
+          </div>
+          <div class="container user-list">
+            <div *ngIf="users | async; let usersData; else loading">
+              <div class="row" [ngClass]="{'user-selected': user.id === selectedUser}" *ngFor="let user of usersData | UserFilter : searchText">
+                <div class="col-10">
+                    <b>{{user.name}}</b> - {{user.email}}
+                </div>                
+                <div class="col-2">
+                    <button class="btn btn-secondary btn-sm  align-self-end" (click)="selectedUser = user.id" [routerLink]="['details',user.id]" >Details</button>
+                </div>
+                <div class="col-12">
+                    <hr>
+                </div>
+              </div>
+            </div>
+              <ng-template #loading>Loading User Data...</ng-template>
+          </div>
+      </div>
+      <div class="col-4">
+          <router-outlet></router-outlet>
+      </div>
+  </div>
+  </div>
+
+

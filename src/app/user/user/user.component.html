@@ -4,18 +4,23 @@
 <div class="container">
   <div class="row">
       <div class="col-12">
-        <form #formUser="ngForm" (ngSubmit)="addUser(formUser)">
+        <form [formGroup]="userForm" (ngSubmit)="addUser()">
           <div class="form-group">
             <label for="Name">Name</label>
-            <input type="text" [(ngModel)]="user.name" class="form-control" name="name" id="name" placeholder="name" required>
-            <small id="emailHelp" class="form-text text-muted" *ngIf="!formUser.form.controls.name?.valid && formUser.form.controls.name?.touched">This field is required.</small>
+            <input type="text" class="form-control"
+            formControlName="name"
+             name="name" id="name" placeholder="name">
+            <small id="emailHelp" class="form-text text-muted" *ngIf="userForm.controls.name.invalid && userForm.controls.name.touched">This field is required.</small>
           </div>
           <div class="form-group">
               <label for="email">Email address</label>
-              <input type="email" [(ngModel)]="user.email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email" required email>
-              <small id="emailHelp" class="form-text text-muted" *ngIf="!formUser.form.controls.email?.valid && formUser.form.controls.email?.touched">Please, provide a valid E-mail.</small>
+              <input type="email" class="form-control" 
+              formControlName="email"
+              name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted" *ngIf="userForm.controls.email.invalid && userForm.controls.email.touched">Please, provide a valid E-mail.</small>              
+              <small id="emailHelp" class="form-text text-muted" *ngIf="userForm.controls.email.invalid && userForm.controls.email.errors.emailInUse">Email already in use.</small>                            
           </div>
-          <button type="submit" class="btn btn-primary" [disabled]="!formUser.form.valid">Submit</button>
+          <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Submit</button>
           <hr>
         </form>
 
@@ -31,6 +36,10 @@
           </div>
           <div class="col-12">
               <hr>
+              <div *ngIf="emailteste | async as emailt">
+                {{emailt | json}}
+              </div>
+              
           </div>
           <div class="container user-list">
             <div *ngIf="users | async; let usersData; else loading">
@@ -48,7 +57,7 @@
             </div>
               <ng-template #loading>Loading User Data...</ng-template>
           </div>
-      </div>
+      </div>      
       <div class="col-4">
           <router-outlet></router-outlet>
       </div>

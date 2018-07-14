@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,17 @@ export class UserService {
   deleteUser(id){
     this.userDocument = this.database.doc('users/' + id);
     this.userDocument.delete();      
+  }
+
+  checkEmailExists(email: string){
+      return this.database.collection('/users',
+        user => user.where('email', '==', email)).valueChanges()
+        .pipe(
+          take(1),
+          map(result => {
+           return result;
+          })
+        )        
   }
 
 }

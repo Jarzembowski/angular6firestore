@@ -25,29 +25,30 @@
         </form>
 
       </div>
-      <div class="col-8" >
+      <div class="col-md-8 col-lg-8 col-sm-12 col-xs-12" >
           <div class="col-12">
               <div class="input-group mb-3">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Search by name</span>
+                    <span class="input-group-text" id="inputGroup-sizing-default">
+                        <span class="d-none d-md-block d-xl-block">Search by name</span>
+                        <span class="d-block d-md-none">
+                            <fa name="search"></fa>
+                        </span>
+                    </span>
                   </div>
                   <input type="text" class="form-control" [(ngModel)]="searchText" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                 </div>
           </div>
           <div class="col-12">
               <hr>
-              <div *ngIf="emailteste | async as emailt">
-                {{emailt | json}}
-              </div>
-              
           </div>
           <div class="container user-list">
             <div *ngIf="users | async; let usersData; else loading">
               <div class="row" [ngClass]="{'user-selected': user.id === selectedUser}" *ngFor="let user of usersData | UserFilter : searchText">
-                <div class="col-10">
+                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
                     <b>{{user.name}}</b> - {{user.email}}
                 </div>                
-                <div class="col-2">
+                <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12">
                     <button class="btn btn-secondary btn-sm  align-self-end" (click)="selectedUser = user.id" [routerLink]="['details',user.id]" >Details</button>
                 </div>
                 <div class="col-12">
@@ -58,7 +59,7 @@
               <ng-template #loading>Loading User Data...</ng-template>
           </div>
       </div>      
-      <div class="col-4">
+      <div class="col-md-4 col-sm-12 col-xs-12">
           <router-outlet></router-outlet>
       </div>
   </div>

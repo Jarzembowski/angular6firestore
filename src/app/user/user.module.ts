@@ -9,6 +9,7 @@ import { UserDetailsResolverService } from './resolvers/user-details-resolver.se
 import {MatDialogModule} from '@angular/material/dialog';
 import { ConfirmComponent } from './dialogs/confirm/confirm.component';
 import {UserFilter} from './pipes/user.filter.pipe';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {UserFilter} from './pipes/user.filter.pipe';
     FormsModule,
     AngularFireDatabaseModule,
     UserRoutingModule,
-    MatDialogModule
+    MatDialogModule,
+    AngularFontAwesomeModule
   ],
   entryComponents: [
     ConfirmComponent
